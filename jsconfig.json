@@ -3,6 +3,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "sourceMap": true,
     "jsx": "react"
   }
 }
