@@ -7,8 +7,14 @@ export async function PUT(req){
     mongoose.connect(process.env.DATABASE_HOST);
     const data = await req.json();
     const {user} = await getServerSession(authOptions);
-    if('name' in data){
-        await User.updateOne({email: user.email}, {name: data.name, password: 'teste2'});
-    }
+    await User.updateOne({email: user.email}, data);
     return Response.json(true);
+}
+
+export async function GET() {
+    mongoose.connect(process.env.DATABASE_HOST)
+    const {user} = await getServerSession(authOptions);
+    return Response.json(
+        await User.findOne({email: user.email})
+    )
 }
