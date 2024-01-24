@@ -1,4 +1,5 @@
 'use client'
+import UserTabs from "@/components/layout/UserTabs";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -14,6 +15,8 @@ export default function ProfilePage(){
   const [postalCode, setPostalCode] = useState('');
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
+  const [admin, setAdmin] = useState(false);
+  const [profileFetched, setProfileFetched] = useState(false);
   const {status} = session;
 
   useEffect(() => {
@@ -27,6 +30,8 @@ export default function ProfilePage(){
           setCity(data.city);
           setPostalCode(data.postalCode);
           setCountry(data.country);
+          setAdmin(data.admin);
+          setProfileFetched(true);
         })
       });
     }
@@ -85,7 +90,7 @@ export default function ProfilePage(){
     }
   }
 
-  if(status === 'loading'){
+  if(status === 'loading' || !profileFetched){
     return 'Loading...';
   }
 
@@ -95,10 +100,8 @@ export default function ProfilePage(){
 
   return (
     <section className="mt-8">
-      <h1 className="text-center text-primary text-4xl mb-4">
-        Profile
-      </h1>
-      <div className="max-w-md mx-auto">
+      <UserTabs admin={admin} />
+      <div className="max-w-md mx-auto mt-8">
         <div className="flex gap-4">
           <div>
             <div className="p-2 rounded-lg relative max-w-[120px]">
