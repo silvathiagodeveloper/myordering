@@ -1,31 +1,55 @@
 'use client'
 import UserTabs from "@/components/layout/UserTabs";
 import { useProfile } from "@/components/useProfile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function CategoriesPage(){
-  const [newCategoryName, setNewCategoryName] = useState('');
+  const [categoryName, setCategoryName] = useState('');
+  const [categories, setCategories] = useState([]);
   const {loading:profileLoading, data:profileData} = useProfile();
+  const [editedCategory, setEditedCategory] = useState(null);
 
-  function handleNewCategorySubmit(ev){
+  useEffect(() => {
+    fetchCategories();
+  },[])
+
+  function fetchCategories(){
+    fetch('/api/categories', {
+      mehot: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    }).then(res => {
+      res.json().then(data => {
+        setCategories(data);
+      });
+    });
+  }
+
+  function handleCategorySubmit(ev){
     ev.preventDefault();
     const creationPromise = new Promise(async (resolve, reject) => {
+        const data = {name: categoryName};
+        if(editedCategory){
+          data._id = editedCategory._id;
+        }
         const response = await fetch('/api/categories', {
-        method: 'POST',
+        method: editedCategory ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({name:newCategoryName})
+        body: JSON.stringify(data)
       });
       if(response.ok) {
+        setCategoryName('');
+        setEditedCategory(null);
+        fetchCategories();
         resolve();
       } else {
         reject();
       }
     });
     toast.promise(creationPromise, {
-      loading: 'Creating...',
-      success: 'Category created!',
-      error: 'Error when creating!',
+      loading: editedCategory ? 'Updating...' : 'Creating...',
+      success: editedCategory ? 'Category updated!' : 'Category created!',
+      error: editedCategory ? 'Error when updating!' : 'Error when creating!',
     });
   }
 
@@ -40,17 +64,37 @@ export default function CategoriesPage(){
   return (
     <section className="mt-8 max-w-md mx-auto">
       <UserTabs admin={true} />
-      <form className="mt-8" onSubmit={handleNewCategorySubmit}>
+      <form className="mt-8" onSubmit={handleCategorySubmit}>
         <div className="flex gap-2 items-end">
           <div className="grow">
-            <label>New category name</label>
-            <input type="text" value={newCategoryName} onChange={ev => setNewCategoryName(ev.target.value)} />
+            <label>
+              {editedCategory ? 'Update category': 'New category name'}
+              {editedCategory && (
+                <>: <b>{editedCategory.name}</b></>
+              )}
+            </label>
+            <input type="text" value={categoryName} onChange={ev => setCategoryName(ev.target.value)} />
           </div>
           <div className="pb-2">
-            <button type="submit">Create</button>
+            <button type="submit">{editedCategory ? 'Update' : 'Create'}</button>
           </div>
         </div>
       </form>
+      <div>
+        <h2 className="mt-8 text-sm text-gray-500">Edit category:</h2>
+        {categories?.length > 0 && categories.map(category => (
+          <button 
+            key={category._id} 
+            className="flex gap-1 bg-gray-200 rounded-xl p-2 px-4 cursor-pointer mb-1"
+            onClick={() => {
+              setEditedCategory(category);
+              setCategoryName(category.name);
+            }}
+          >
+            <span>{category.name}</span>
+          </button>
+        ))}
+      </div>
     </section>
   );
 }
