@@ -3,6 +3,7 @@
 import Right from "@/components/icons/Right";
 import UserTabs from "@/components/layout/UserTabs";
 import { useProfile } from "@/components/useProfile";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -41,11 +42,20 @@ export default function MenuItemsPage(){
         </div>
         <div>
           <h2 className="text-sm text-gray-500 mt-8">Edit menu item</h2>
-          {menuItems?.length > 0 && menuItems.map(menuItem => (
-            <Link href={'/menu-items/edit/'+menuItem._id} className="button mb-1" key={menuItem._id}>
-              {menuItem.name}
-            </Link>
-          ))}
+          <div className="grid grid-cols-3 gap-2">
+            {menuItems?.length > 0 && menuItems.map(menuItem => (
+              <Link href={'/menu-items/edit/'+menuItem._id} 
+                className="bg-gray-200 rounded-lg p-4" key={menuItem._id}>
+                <div className="relative">
+                  <Image src={menuItem.image} alt={''} width={200} height={200}
+                    className="rounded-md" />
+                </div>
+                <div className="text-center">
+                  {menuItem.name}
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
     </section>
   );

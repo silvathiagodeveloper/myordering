@@ -8,6 +8,13 @@ export async function POST(req){
   return Response.json(menuItem);
 }
 
+export async function PUT(req){
+  mongoose.connect(process.env.DATABASE_HOST);
+  const {_id, ...data} = await req.json();
+  await MenuItem.findByIdAndUpdate(_id, data);
+  return Response.json(true);
+}
+
 export async function GET(req){
   mongoose.connect(process.env.DATABASE_HOST);
   return Response.json(
