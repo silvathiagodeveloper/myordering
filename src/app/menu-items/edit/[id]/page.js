@@ -73,5 +73,4 @@ export default function EditMenuItemPage() {
       <MenuItemForm onSubmit={handleFormSubmit} menuItem={menuItem} />
     </section>
   )
-
 }
