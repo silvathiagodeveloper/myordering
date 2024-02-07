@@ -1,4 +1,5 @@
 'use client'
+import DeleteButton from "@/components/DeleteButton";
 import UserTabs from "@/components/layout/UserTabs";
 import { useProfile } from "@/components/useProfile";
 import { resolve } from "path";
@@ -121,11 +122,7 @@ export default function CategoriesPage(){
               >
                 Edit
               </button>
-              <button 
-                onClick={() => {handleDeleteClick(category._id)}}
-              >
-                Delete
-              </button>
+              <DeleteButton label="Delete" onDelete={() => {handleDeleteClick(category._id)}} />
             </div>
           </div>
         ))}

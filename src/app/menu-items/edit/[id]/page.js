@@ -3,6 +3,7 @@
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 import UserTabs from "@/components/layout/UserTabs";
+import DeleteButton from "@/components/DeleteButton";
 import { useProfile } from "@/components/useProfile";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
@@ -48,6 +49,27 @@ export default function EditMenuItemPage() {
     );
   }
 
+  function handleDeleteClick() {
+    const creationPromise = new Promise( async (resolve, reject) => {
+      const response = await fetch('/api/menu-items?_id='+id, {
+        method: 'DELETE',
+        headers: {'Content-Type' : 'application/json'}
+      })
+      if(response.ok) {
+        setRedirectToItems(true);
+        resolve();
+      }else {
+        reject();
+      }
+    });
+    toast.promise(creationPromise,{
+        loading: 'Deleting...',
+        success: 'Deleted',
+        error: 'Error deleting'
+      }
+    );
+  }
+
   if(redirectToItems){
     return redirect('/menu-items');
   }
@@ -70,6 +92,11 @@ export default function EditMenuItemPage() {
          </Link>
       </div>
       <MenuItemForm onSubmit={handleFormSubmit} menuItem={menuItem} />
+      <div className="max-w-md mx-auto mt-2">
+        <div className="max-w-xs ml-auto pl-4">
+          <DeleteButton label="Delete" onDelete={handleDeleteClick}/>
+        </div>
+      </div>
     </section>
   )
 }
