@@ -6,3 +6,10 @@ export async function GET(){
     const users = await User.find();
     return Response.json(users);
 }
+
+export async function PUT(req){
+    mongoose.connect(process.env.DATABASE_HOST);
+    const {_id, ...data} = await req.json();
+    await User.findByIdAndUpdate(_id, data);
+    return Response.json(true);
+}
