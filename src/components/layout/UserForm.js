@@ -22,7 +22,7 @@ export default function UserForm({user, onSave}){
         </div>
       </div>
       <form className="grow" onSubmit={ev => onSave(ev, 
-        {name, image, phone, streetAddress, postalCode, city, country})}>
+        {name, image, phone, streetAddress, postalCode, city, country, admin})}>
         <label>First and last name</label>
         <input type="text" placeholder="First and last name" value={name} onChange={ev => setName(ev.target.value)} />
         <label>Email</label>
