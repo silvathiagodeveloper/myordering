@@ -2,7 +2,6 @@
 import DeleteButton from "@/components/DeleteButton";
 import UserTabs from "@/components/layout/UserTabs";
 import { useProfile } from "@/components/useProfile";
-import { resolve } from "path";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -84,8 +83,8 @@ export default function CategoriesPage(){
   }
 
   return (
-    <section className="mt-8 max-w-md mx-auto">
-      <UserTabs admin={true} />
+    <section className="mt-8 max-w-xl mx-auto">
+      <UserTabs admin={profileData.admin} />
       <form className="mt-8" onSubmit={handleCategorySubmit}>
         <div className="flex gap-2 items-end">
           <div className="grow">

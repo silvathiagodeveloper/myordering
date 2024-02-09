@@ -32,7 +32,7 @@ export default function MenuItemsPage(){
   }
 
   return (
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-8 max-w-xl mx-auto">
         <UserTabs admin={profileData.admin} />
         <div className="mt-8">
           <Link className="button flex gap-2 justify-center" href={'/menu-items/new'}>

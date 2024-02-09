@@ -83,7 +83,7 @@ export default function EditMenuItemPage() {
   }
 
   return(
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-8 max-w-xl mx-auto">
       <UserTabs admin={profileData.admin} />
       <div className="mt-8">
         <Link className="button flex gap-2 justify-center" href={'/menu-items'}>
@@ -92,8 +92,8 @@ export default function EditMenuItemPage() {
          </Link>
       </div>
       <MenuItemForm onSubmit={handleFormSubmit} menuItem={menuItem} />
-      <div className="max-w-md mx-auto mt-2">
-        <div className="max-w-xs ml-auto pl-4">
+      <div className="max-w-xl mx-auto mt-2">
+        <div className="max-w-[24.5rem] ml-auto">
           <DeleteButton label="Delete" onDelete={handleDeleteClick}/>
         </div>
       </div>
