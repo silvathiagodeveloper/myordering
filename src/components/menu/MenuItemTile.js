@@ -9,7 +9,7 @@ export default function MenuItemTile({menuItem, onAddToCart}){
       <button className="bg-primary text-white rounded-full mt-4 px-8 py-2"
         onClick={onAddToCart}>
         {(menuItem.sizes?.length > 0 || menuItem.ingredients?.length > 0) ? (
-          <span>Add to cart (from ${menuItem?.basePrice}) </span>
+          <span>Add to cart (from ${menuItem?.basePrice+menuItem?.sizes[0].price}) </span>
         ) : (
           <span>Add to cart R$ {menuItem?.basePrice}</span>
         )}
