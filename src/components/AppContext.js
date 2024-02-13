@@ -12,12 +12,25 @@ export function AppProvider({children}){
     if(ls && ls.getItem('cart')){
       setCartProducts(JSON.parse(ls.getItem('cart')));
     }
-  }, [])
+  }, []);
 
   function saveCartProductsToLocalStorage(cartProducts){
     if(ls){
       ls.setItem('cart', JSON.stringify(cartProducts));
     }
+  }
+
+  function clearCart(){
+    setCartProducts([]);
+    saveCartProductsToLocalStorage([]);
+  }
+
+  function removeCartProduct(indexRemove){
+    setCartProducts(prev => {
+      const newCartProducts = prev.filter((v, index) => index !== indexRemove);
+      saveCartProductsToLocalStorage(newCartProducts);
+      return newCartProducts;
+    });
   }
 
   function addToCart(product, size=null, extras=[]) {
@@ -31,7 +44,7 @@ export function AppProvider({children}){
   return(
     <SessionProvider>
       <CartContext.Provider value={{
-        cartProducts, addToCart
+        cartProducts, addToCart, removeCartProduct, clearCart
       }}>
         {children}
       </CartContext.Provider>
