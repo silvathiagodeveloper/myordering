@@ -3,7 +3,7 @@ import FlyingButton from 'react-flying-item'
 export default function AddToCartButton({hasSizesOrIngredients, basePrice, onAddToCart, image}){
   if(!hasSizesOrIngredients){
     return (
-      <div className='flying-button-parent-'>
+      <div className='flying-button-parent'>
         <FlyingButton 
           targetTop={'5%'}
           targetLeft={'95%'}
