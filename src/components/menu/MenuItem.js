@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../AppContext";
 import MenuItemTile from "@/components/menu/MenuItemTile";
-import toast from "react-hot-toast";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function MenuItem({menuItem}){
   const [selectedSize, setSelectedSize] = useState(menuItem.sizes?.[0] || null);
@@ -16,9 +16,9 @@ export default function MenuItem({menuItem}){
       return;
     }
     addToCart(menuItem, selectedSize, selectedIngrediets);
-    toast.success('Added to cart!');
     setSelectedSize(menuItem.sizes?.[0] || null);
     setSelectedIngredients([]);
+    toast.success('Product added!')
     setShowPopup(false);
   }
   function handleIngredientsClick(ev, ingredient){

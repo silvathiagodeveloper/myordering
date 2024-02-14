@@ -4,6 +4,19 @@ import { useState, createContext, useEffect } from "react";
 
 export const CartContext = createContext({});
 
+export function cartProductPrice(cartProduct) {
+  let price = cartProduct.basePrice;
+  if(cartProduct.size) {
+    price += cartProduct.size.price;
+  }
+  if(cartProduct.ingredients?.length > 0){
+    cartProduct.ingredients.forEach(ingredient => {
+      price += ingredient.price;
+    });
+  }
+  return price;
+}
+
 export function AppProvider({children}){
   const [cartProducts, setCartProducts] = useState([]);
   const ls = typeof window !== 'undefined' ? window.localStorage : null;
