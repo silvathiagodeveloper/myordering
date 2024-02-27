@@ -3,8 +3,8 @@ import Right from '../icons/Right';
 
 export default function Hero() {
   return(
-    <section className='hero mt-4'>
-      <div className='py-12'>
+    <section className='hero md:mt-4'>
+      <div className='py-8 md:py-12'>
         <h1 className='text-4xl font-semibold'>
           Everethign<br />is better<br />with a&nbsp;
           <span className='text-primary'>Pizza</span>
@@ -23,7 +23,7 @@ export default function Hero() {
           </button>
         </div>
       </div>
-      <div className='relative'>
+      <div className='relative hidden md:block'>
         <Image src={'/pizza-1.png'} layout={'fill'} objectFit={'contain'} alt={'pizza'} />
       </div>
     </section>

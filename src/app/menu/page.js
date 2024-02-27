@@ -21,7 +21,7 @@ export default function MenuPage(){
           <div className="text-center">
             <SectionHeaders mainHeader={category.name} />
           </div>
-          <div className="grid grid-cols-3 gap-4 mt-6 mb-12">
+          <div className="grid sm:grid-cols-3 gap-4 mt-6 mb-12">
             {menuItems?.length > 0 && menuItems.filter(m => m.category === category._id).map(menuItem => (
               <MenuItem key={menuItem._id} menuItem={menuItem} />
             ))}

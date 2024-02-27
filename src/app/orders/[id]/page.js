@@ -47,7 +47,7 @@ export default function OrderPage(){
           <div>Loading order...</div>
       )}
       {order && (
-        <div className="grid grid-cols-2 gap-16">
+        <div className="grid sm:grid-cols-2 gap-16">
           <div>
             {order.cartProducts?.length > 0 && order.cartProducts.map((product, index) => (
               <CartProduct product={product} index={index} />
