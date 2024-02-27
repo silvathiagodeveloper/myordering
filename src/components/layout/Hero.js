@@ -23,8 +23,8 @@ export default function Hero() {
           </button>
         </div>
       </div>
-      <div className='relative hidden md:block'>
-        <Image src={'/pizza-1.png'} layout={'fill'} objectFit={'contain'} alt={'pizza'} />
+      <div className="relative hidden md:block h-full w-full object-contain">
+        <Image src={'/pizza-1.png'} fill sizes="100wv" priority={true} alt={'pizza'} />
       </div>
     </section>
   )

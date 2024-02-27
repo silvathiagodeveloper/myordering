@@ -45,9 +45,9 @@ export default function UserForm({user, onSave}){
       <form className="grow" onSubmit={ev => onSave(ev, 
         {name, image, phone, streetAddress, postalCode, city, country, admin})}>
         <label>First and last name</label>
-        <input type="text" placeholder="First and last name" value={name} onChange={ev => setName(ev.target.value)} />
+        <input type="text" placeholder="First and last name" value={name??''} onChange={ev => setName(ev.target.value)} />
         <label>Email</label>
-        <input type="email" value={user?.email} disabled={true} />
+        <input type="email" value={user?.email??''} disabled={true} />
         <AddressInputs 
           addressProps={{phone, streetAddress, postalCode, city, country}}
           setAddressProp={handleAddressChange} />

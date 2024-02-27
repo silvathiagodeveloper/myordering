@@ -18,10 +18,10 @@ export default function HomeMenu(){
     <section>
       <div className="absolute left-0 right-0 -z-10">
         <div className="h-48 w-48 absolute left-0 -top-8">
-          <Image src={'/sallad1.png'} layout={'fill'} objectFit={'contain'} alt={'sallad'} />
+          <Image src={'/sallad1.png'} fill sizes="100wv" priority={true} alt={'sallad'} />
         </div>
         <div className="h-48 w-48 absolute right-0 -top-8">
-          <Image src={'/sallad2.png'} layout={'fill'} objectFit={'contain'} alt={'sallad'} />
+          <Image src={'/sallad2.png'} fill sizes="100wv" priority={true} alt={'sallad'} />
         </div>
       </div>
       <div className="text-center py-4">

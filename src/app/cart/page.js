@@ -85,7 +85,7 @@ export default function CartPage(){
             <div>No products in your cart</div>
           )}
           {cartProducts?.length > 0 && cartProducts.map((product, index) => (
-            <CartProduct product={product} index={index} onRemove={handleRemoveProductClick} />
+            <CartProduct key={index} product={product} index={index} onRemove={handleRemoveProductClick} />
           ))}
           <div className="pt-2 text-right pr-16">
             <span className="text-gray-500">

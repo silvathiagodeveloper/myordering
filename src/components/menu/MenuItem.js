@@ -45,7 +45,7 @@ export default function MenuItem({menuItem}){
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center" onClick={() => setShowPopup(false)}>
           <div className="bg-white p-4 rounded-lg max-w-md" onClick={ev => ev.stopPropagation()}>
             <div className="overflow-y-scroll p-2" style={{maxHeight:'calc(100vh - 100px)'}}>
-              <Image src={menuItem.image} alt={menuItem.name} width={300} height={200} className="mx-auto"/>
+              <Image src={menuItem.image} alt={menuItem.name} width={300} height={200} className="mx-auto w-auto h-auto"/>
               <h2 className="text-lg font-bold text-center mb-2">{menuItem.name}</h2>
               <p className="text-center text-gray-500 text-sm mb-0">{menuItem.description}</p>
               {menuItem.sizes?.length > 0 &&(
@@ -71,7 +71,7 @@ export default function MenuItem({menuItem}){
                   ))}
                 </div>
               )}
-              <button className="primary sticky bottom-2" type="button" onClick={handleAddToCartClick}>
+              <button className="primary sticky" type="button" onClick={handleAddToCartClick}>
                 Add to cart ${selectedPrice} 
               </button>
               <button className="mt-2" type="button" onClick={() => setShowPopup(false)}>Cancel</button>
