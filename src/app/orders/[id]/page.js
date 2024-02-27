@@ -9,6 +9,7 @@ import CartProduct from "@/components/menu/CartProduct";
 export default function OrderPage(){
   const {clearCart} = useContext(CartContext);
   const [order, setOrder] = useState('');
+  const [loadingOrder, setLoadingOrder] = useState(true);
   const [subtotal, setSubtotal] = useState(0);
   const {id} = useParams();
   const delivery = 5;
@@ -19,6 +20,7 @@ export default function OrderPage(){
       }
     }
     if(id){
+      setLoadingOrder(true);
       fetch('/api/orders?_id='+id).then(response => {
         response.json().then(orderData => {
           setOrder(orderData);
@@ -27,6 +29,7 @@ export default function OrderPage(){
             subtotal += cartProductPrice(product);
           });
           setSubtotal(subtotal);
+          setLoadingOrder(false);
         })
       })
     }
@@ -40,6 +43,9 @@ export default function OrderPage(){
           <p>We will call you when your order is on its way.</p>
         </div>
       </div>
+      {loadingOrder && (
+          <div>Loading order...</div>
+      )}
       {order && (
         <div className="grid grid-cols-2 gap-16">
           <div>
