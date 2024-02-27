@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { User } from "@/app/models/User";
 import { Order } from "@/app/models/Order";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions, isAdmin } from "../auth/[...nextauth]/route";
 
 export async function  GET(req){
   mongoose.connect(process.env.DATABASE_HOST);
@@ -17,15 +17,10 @@ export async function  GET(req){
     return Response.json({'error':'No permission'});
   }
 
+  admin = await isAdmin();
+
   if(url.searchParams.get('_id')){
     orderId = url.searchParams.get('_id');
-  }
-
-  if(userEmail){
-    const user = await User.findOne({email:userEmail});
-    if(user){
-      admin = user.admin;
-    }
   }
 
   if(!admin){

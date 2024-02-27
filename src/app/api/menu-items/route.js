@@ -1,7 +1,11 @@
 import { MenuItem } from "@/app/models/MenuItem";
 import mongoose from "mongoose";
+import { isAdmin } from "../auth/[...nextauth]/route";
 
 export async function POST(req){
+  if (!(await isAdmin())){
+    return Response.json({});
+  }
   mongoose.connect(process.env.DATABASE_HOST);
   const data = await req.json();
   const menuItem = await MenuItem.create(data);
@@ -9,6 +13,9 @@ export async function POST(req){
 }
 
 export async function PUT(req){
+  if (!(await isAdmin())){
+    return Response.json(false);
+  }
   mongoose.connect(process.env.DATABASE_HOST);
   const {_id, ...data} = await req.json();
   await MenuItem.findByIdAndUpdate(_id, data);
@@ -23,6 +30,9 @@ export async function GET(req){
 }
 
 export async function DELETE(req){
+  if (!(await isAdmin())){
+    return Response.json(false);
+  }
   mongoose.connect(process.env.DATABASE_HOST);
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');

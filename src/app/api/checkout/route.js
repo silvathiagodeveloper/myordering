@@ -44,7 +44,6 @@ export async function POST(req){
         currency: 'BRL',
         product_data: {
           name: productInfo.name,
-
         },
         unit_amount: productPrice * 100
       }
