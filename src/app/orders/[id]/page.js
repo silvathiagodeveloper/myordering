@@ -50,7 +50,7 @@ export default function OrderPage(){
         <div className="grid sm:grid-cols-2 gap-16">
           <div>
             {order.cartProducts?.length > 0 && order.cartProducts.map((product, index) => (
-              <CartProduct product={product} index={index} />
+              <CartProduct key={index} product={product} index={index} />
             ))}
             <div className="pt-2 text-right pr-16">
               <span className="text-gray-500">
@@ -78,7 +78,7 @@ export default function OrderPage(){
             </div>
           </div>
           <div className="bg-gray-100 p-4 rounded-lg">
-            <AddressInputs disabled={true} addressProps={...order} />
+            <AddressInputs disabled={true} addressProps={order} />
           </div>
         </div>
       )}
