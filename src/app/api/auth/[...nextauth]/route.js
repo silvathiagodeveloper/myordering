@@ -8,7 +8,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/libs/mongoConnect";
 
 export const authOptions = {
-  secret: process.env.ORDERING_SECRET,
+  secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
