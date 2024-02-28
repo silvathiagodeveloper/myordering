@@ -7,11 +7,11 @@ export async function POST(req) {
   const sig = req.headers.get('stripe-signature');
   const endpointSecret = process.env.STRIPE_SIG;
   let event;
-//  try {
+  try {
     event = stripe.webhooks.constructEvent(reqBuffer, sig, endpointSecret);
-//  } catch (err) {
-//    return Response.json(err, {status: 400});
-//  }
+  } catch (err) {
+    return Response.json(err, {status: 400});
+  }
 
   if(event.type == 'checkout.session.completed'){
     const orderId = event?.data?.object?.metadata?.orderId;
