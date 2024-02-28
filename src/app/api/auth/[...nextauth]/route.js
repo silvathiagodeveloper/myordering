@@ -15,15 +15,14 @@ export const authOptions = {
       name: 'Credentials',
       id: 'credentials',
       credentials: {
-        username: { label: "Email", type: "email", placeholder: "test@example.com" },
+        email: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
         const {email, password} = credentials;
         mongoose.connect(process.env.DATABASE_HOST);
         const user = await User.findOne({email});
-        const passwordOk = user && bcrypt.compareSync(password, user.password);
-        
+        const passwordOk = await user && bcrypt.compareSync(password, user.password);
         if(passwordOk){
           return user;
         }
@@ -34,7 +33,10 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
-  ]
+  ],
+  session: {
+    strategy: 'jwt'
+  }
 }
 
 export async function isAdmin() {
