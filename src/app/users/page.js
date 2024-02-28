@@ -4,7 +4,7 @@ import { useProfile } from "@/components/useProfile";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function usersPage(){
+export default function UsersPage(){
   const {loading:profileLoading, data:profileData} = useProfile();
   const [users, setUsers] = useState([]);
 
