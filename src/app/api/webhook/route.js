@@ -10,12 +10,10 @@ export async function POST(req) {
   try {
     event = stripe.webhooks.constructEvent(reqBuffer, sig, endpointSecret);
   } catch (err) {
-    return Response.json(e, {status: 400});
+    return Response.json(err, {status: 400});
   }
 
   if(event.type == 'checkout.session.completed'){
-    console.log(event?.data?.object?.metadata?.orderId);
-    console.log(event?.data?.object?.payment_status);
     const orderId = event?.data?.object?.metadata?.orderId;
     const paid = event?.data?.object?.payment_status === 'paid';
     if(paid){
